@@ -2,8 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { NextAuthProvider } from "@/providers/NextAuthProvider";
 import { Inter } from "next/font/google";
-import { cn } from "@/lib/utils";
-import { getServerSession } from "next-auth";
+import { cn, getSession } from "@/lib/utils";
 import { options } from "../lib/next-auth-options";
 
 const fontSans = Inter({
@@ -21,7 +20,7 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const session = await getServerSession(options);
+  const session = await getSession();
 
   return (
     <NextAuthProvider session={session}>
