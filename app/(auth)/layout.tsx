@@ -1,13 +1,16 @@
 import { AuthNavigationLink } from "@/components/auth/auth-navigation-link";
 import { buttonVariants } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
-import Link from "next/link";
+import { authenticated, cn } from "@/lib/utils";
+import { redirect } from "next/navigation";
 
-export default function AuthLayout({
+export default async function AuthLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  if (await authenticated()) {
+    redirect("/home");
+  }
   return (
     <>
       <div className="container relative hidden h-[100vh] flex-col items-center justify-center md:grid lg:max-w-none lg:grid-cols-2 lg:px-0">

@@ -8,10 +8,11 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { getSession } from "@/lib/utils";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
+import { useState } from "react";
 import { toast } from "sonner";
 
-export function ConfirmDeleteModal({
+function ConfirmDeleteModal({
   setOpen,
   open,
   urlId,
@@ -80,5 +81,30 @@ export function ConfirmDeleteModal({
         </div>
       </DialogContent>
     </Dialog>
+  );
+}
+
+export function DeleteUrl({ row }: { row: any }) {
+  const [open, setOpen] = useState(false);
+  const router = useRouter();
+
+  return (
+    <>
+      <ConfirmDeleteModal
+        refreshData={router.refresh}
+        open={open}
+        setOpen={setOpen}
+        urlId={row.original.id}
+      />
+      <Button
+        onClick={() => {
+          setOpen(true);
+        }}
+        variant="ghost"
+        className="text-red-600 hover:text-red-800"
+      >
+        <span className="">Delete</span>
+      </Button>
+    </>
   );
 }

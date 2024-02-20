@@ -1,10 +1,9 @@
 "use client";
 import { Url } from "@/types/url";
 import { ColumnDef } from "@tanstack/react-table";
-import { Button } from "@/components/ui/button";
-import { ConfirmDeleteModal } from "@/components/analytics/confirm-delete-modal";
+import { DeleteUrl } from "@/components/analytics/delete-url-button";
 import React from "react";
-import { useRouter } from "next/navigation";
+
 export const columns: ColumnDef<Url>[] = [
   {
     accessorKey: "id",
@@ -28,31 +27,6 @@ export const columns: ColumnDef<Url>[] = [
   },
   {
     id: "actions",
-
-    cell: ({ row, table }) => {
-      const [open, setOpen] = React.useState(false);
-
-      const router = useRouter();
-
-      return (
-        <>
-          <ConfirmDeleteModal
-            refreshData={router.refresh}
-            open={open}
-            setOpen={setOpen}
-            urlId={row.original.id}
-          />
-          <Button
-            onClick={() => {
-              setOpen(true);
-            }}
-            variant="ghost"
-            className="text-red-600 hover:text-red-800"
-          >
-            <span className="">Delete</span>
-          </Button>
-        </>
-      );
-    },
+    cell: ({ row }) => <DeleteUrl row={row} />,
   },
 ];
