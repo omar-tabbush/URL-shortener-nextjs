@@ -2,9 +2,11 @@ import { ApiError } from "@/types/apiError";
 import { Url } from "@/types/url";
 import { getSession } from "./utils";
 
-export const getUrls = async (): Promise<Url[]> => {
+export const getUrls = async (
+  page: number | string
+): Promise<{ urls: Url[]; count: number; pageSize: number }> => {
   const session = await getSession();
-  const res = await fetch(`${process.env.API_URL}/url/all`, {
+  const res = await fetch(`${process.env.API_URL}/url/all/${page}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",

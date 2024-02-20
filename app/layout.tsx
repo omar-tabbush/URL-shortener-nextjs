@@ -3,7 +3,6 @@ import "./globals.css";
 import { NextAuthProvider } from "@/providers/NextAuthProvider";
 import { Inter } from "next/font/google";
 import { cn, getSession } from "@/lib/utils";
-import { options } from "../lib/next-auth-options";
 
 const fontSans = Inter({
   subsets: ["latin"],

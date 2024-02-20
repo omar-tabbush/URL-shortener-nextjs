@@ -26,6 +26,7 @@ export default function Layout({
         <nav className="ml-auto flex gap-4 sm:gap-6">
           <NavLink href="/home">Home</NavLink>
           <NavLink href="/custom">Custom Link</NavLink>
+          <NavLink href="/analytics?page=0">Analytics</NavLink>
           <AuthNavigationLink
             redirectUrl="/login"
             className="text-sm font-medium hover:underline underline-offset-4"

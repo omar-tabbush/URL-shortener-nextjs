@@ -22,16 +22,16 @@ const formSchema = z.object({
   longUrl: z.string().url({ message: "Please enter a valid URL" }),
   shortUrl: z
     .string()
-    .startsWith(`${process.env.BASE_URL}/`, {
-      message: "Custom URL must start with " + process.env.BASE_URL + "/",
+    .startsWith(`${process.env.REDIRECT_URL}/`, {
+      message: "Custom URL must start with " + process.env.REDIRECT_URL + "/",
     })
-    .min(`${process.env.BASE_URL}/`.length + 1, {
+    .min(`${process.env.REDIRECT_URL}/`.length + 1, {
       message: "Custom URL must be at least 1 character long",
     })
-    // regex restrict special characters without what is inside `${process.env.BASE_URL}/`
+    // regex restrict special characters without what is inside `${process.env.REDIRECT_URL}/`
     .regex(
       new RegExp(
-        `^${process.env.BASE_URL}/[a-zA-Z0-9-_]+(?!.*[!@#$%^&*(),.?":{}|<>])$`
+        `^${process.env.REDIRECT_URL}/[a-zA-Z0-9-_]+(?!.*[!@#$%^&*(),.?":{}|<>])$`
       ),
       {
         message: "Custom URL must not contain special characters",
@@ -45,7 +45,7 @@ export default function CustomUrlForm() {
     resolver: zodResolver(formSchema),
     defaultValues: {
       longUrl: "",
-      shortUrl: `${process.env.BASE_URL}/`,
+      shortUrl: `${process.env.REDIRECT_URL}/`,
     },
   });
 
@@ -54,7 +54,7 @@ export default function CustomUrlForm() {
   const [open, setOpen] = React.useState(false);
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    values.shortUrl = values.shortUrl.replace(`${process.env.BASE_URL}/`, "");
+    values.shortUrl = values.shortUrl.replace(`${process.env.REDIRECT_URL}/`, "");
     try {
       const request = await fetch(`${process.env.API_URL}/url`, {
         method: "POST",

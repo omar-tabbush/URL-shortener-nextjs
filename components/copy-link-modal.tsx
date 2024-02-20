@@ -41,7 +41,7 @@ export function CopyLinkModal({
             <Input
               id="link"
               defaultValue={
-                response ? `${process.env.BASE_URL}/${response.shortUrl}` : ""
+                response ? `${process.env.REDIRECT_URL}/${response.shortUrl}` : ""
               }
               readOnly
             />

@@ -6,12 +6,12 @@ export async function middleware(req: NextRequest, res: NextResponse) {
   const pathname = decodeURIComponent(req.nextUrl.pathname);
 
   // Check if the request is for the home page or not a shortened URL
-  if (pathname === "/" || pathname.split("/").length > 2) {
+  if (pathname === "/" || pathname.split("/").length > 3) {
     return NextResponse.next();
   }
-  const shortUrl = pathname.split("/")[1] ?? "";
-
+  const shortUrl = pathname.split("/r/")[1] ?? "";
   try {
+    if (!shortUrl) return NextResponse.next();
     const url = await getUrl(shortUrl);
     if (!url?.longUrl) return NextResponse.next();
     return NextResponse.redirect(decodeURIComponent(url.longUrl));
